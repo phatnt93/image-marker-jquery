@@ -1,0 +1,51 @@
+/*
+    Image Marker
+    By Phat
+    
+    Github: https://github.com/phatnt93
+
+    version 1.0.1
+
+    Example: 
+
+    $('#img-marker').imageMarker({
+        marker: {
+            image: './wifi-icon.png'
+        }
+    });
+    
+*/
+
+.img-marker {
+    position: relative;
+    width: 100%;
+}
+
+.img-marker .marker{
+    position: absolute;
+    z-index: 1;
+}
+
+.img-marker #img-core{
+    width: 100%;
+}
+
+.img-marker .text-note{
+    position: absolute;
+    top: 0;
+    left: 0;
+    min-width: 200px;
+    background-color: gray;
+    padding: 5px;
+    z-index: 2;
+}
+
+.img-marker .text-note .close-note{
+    font-size: 1.2em;
+    font-weight: 700;
+    text-align: center;
+}
+
+.img-marker .img-maker-item img{
+    width: 100%;
+}
