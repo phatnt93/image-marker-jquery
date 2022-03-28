@@ -4,7 +4,7 @@
     
     Github: https://github.com/phatnt93
 
-    version 1.0.1
+    version 1.0.2
 
     Example: 
 
@@ -71,9 +71,37 @@
         this.markers = [];
         this.imgCore = $(this).find('img');
 
+        /**
+         * 
+         * @param {Marker} marker 
+         */
         this.addMarker = function(marker){
             this.markers.push(marker);
         };
+
+        /**
+         * 
+         * @param {Marker[]} markers 
+         */
+        this.setMarkers = function(markers){
+            this.markers = markers;
+        }
+
+        /**
+         * 
+         * @param {Marker} marker 
+         */
+        this.updateMarker = function(marker){
+            let mks = this.getMarkers();
+            for(let i = 0; i < mks.length; i++){
+                if(mks[i].id == marker.id){
+                    this.markers[i] = marker;
+                    return true;
+                }
+            }
+            return false;
+        }
+        
 
         /**
          * 
@@ -97,7 +125,7 @@
             return false;
         };
 
-        this.resetMarker = function() {
+        this.resetMarkers = function() {
             this.markers = [];
         };
 
@@ -134,7 +162,19 @@
 
         this.removeAllMarkers = function(){
             $(this).find('.marker').remove();
-            this.resetMarker();
+            this.resetMarkers();
+        }
+
+        this.removeMarker = function(marker){
+            let mks = this.getMarkers();
+            imageMarker.resetMarkers();
+            for(let i = 0; i < mks.length; i++){
+                if(mks[i].id != marker.id){
+                    imageMarker.addMarker(mks[i]);
+                }
+            }
+            imageMarker.reloadMarkers();
+            return true;
         }
         
         /**
@@ -145,12 +185,14 @@
             this.removeAllMarkers();
             for(let i = 0; i < markers.length; i++){
                 let marker = new Marker(markers[i]);
+                marker.image = imageMarker.settings.marker.image;
                 marker.width = imageMarker.settings.marker.width;
                 marker.height = imageMarker.settings.marker.height;
                 marker.imgCoreChange.width = $(imageMarker.imgCore).width();
                 marker.imgCoreChange.height = $(imageMarker.imgCore).height();
                 imageMarker.addMarker(marker);
             }
+            this.reloadMarkers();
         }
 
         /**
